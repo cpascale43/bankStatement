@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0" tests="6" failures="1">
-  <testsuite name="Root Suite" timestamp="2020-04-30T18:19:19" tests="0" failures="0" time="0">
+<testsuites name="Mocha Tests" time="0.008" tests="6" failures="6">
+  <testsuite name="Root Suite" timestamp="2020-04-30T19:51:56" tests="0" failures="0" time="0">
   </testsuite>
-  <testsuite name="user monthly statements test" timestamp="2020-04-30T18:19:19" tests="6" file="/Users/carriepascale/Desktop/GH/SP/2a04cb0b-daae-4ec8-b606-fa004167c3cd/test/test.js" failures="1" time="0">
-    <testcase name="user monthly statements test &quot;before all&quot; hook" time="0" classname="&quot;before all&quot; hook">
-      <failure message="session not created: This version of ChromeDriver only supports Chrome version 78
-  (Driver info: chromedriver=78.0.3904.70 (edb9c9f3de0247fd912a77b7f6cae7447f6d3ad5-refs/branch-heads/3904@{#800}),platform=Mac OS X 10.15.1 x86_64)" type="SessionNotCreatedError"><![CDATA[SessionNotCreatedError: session not created: This version of ChromeDriver only supports Chrome version 78
-  (Driver info: chromedriver=78.0.3904.70 (edb9c9f3de0247fd912a77b7f6cae7447f6d3ad5-refs/branch-heads/3904@{#800}),platform=Mac OS X 10.15.1 x86_64)
-    at Object.checkLegacyResponse (node_modules/selenium-webdriver/lib/error.js:546:15)
-    at parseHttpResponse (node_modules/selenium-webdriver/lib/http.js:509:13)
-    at node_modules/selenium-webdriver/lib/http.js:441:30
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-From: Task: WebDriver.createSession()
-    at Function.createSession (node_modules/selenium-webdriver/lib/webdriver.js:769:24)
-    at Function.createSession (node_modules/selenium-webdriver/chrome.js:761:15)
-    at createDriver (node_modules/selenium-webdriver/index.js:170:33)
-    at Builder.build (node_modules/selenium-webdriver/index.js:642:16)
-    at Context.<anonymous> (test/test.js:29:14)
+  <testsuite name="user monthly statements test" timestamp="2020-04-30T19:51:56" tests="6" file="/Users/carriepascale/Desktop/GH/SP/2a04cb0b-daae-4ec8-b606-fa004167c3cd/test/test.js" failures="6" time="0.008">
+    <testcase name="user monthly statements test Should render the filter view initially" time="0.006" classname="Should render the filter view initially">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at Context.<anonymous> (test/test.js:46:32)
+    at processImmediate (internal/timers.js:439:21)]]></failure>
+    </testcase>
+    <testcase name="user monthly statements test Should not start fetching the data if the disabled value is selected in the select menu" time="0" classname="Should not start fetching the data if the disabled value is selected in the select menu">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at Context.<anonymous> (test/test.js:55:32)
+    at processImmediate (internal/timers.js:439:21)]]></failure>
+    </testcase>
+    <testcase name="user monthly statements test Should show the loader when a valid value is selected from the select dropdown" time="0.001" classname="Should show the loader when a valid value is selected from the select dropdown">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at Context.<anonymous> (test/test.js:65:36)
+    at processImmediate (internal/timers.js:439:21)]]></failure>
+    </testcase>
+    <testcase name="user monthly statements test Should render the statement view with user data when the data is fetched" time="0.001" classname="Should render the statement view with user data when the data is fetched">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at setupStatementView (test/utils.js:73:32)
+    at Context.<anonymous> (test/test.js:79:39)
+    at processImmediate (internal/timers.js:439:21)]]></failure>
+    </testcase>
+    <testcase name="user monthly statements test Should render the statement cards properly on the screen" time="0" classname="Should render the statement cards properly on the screen">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at setupStatementView (test/utils.js:73:32)
+    at Context.<anonymous> (test/test.js:91:48)
+    at processImmediate (internal/timers.js:439:21)]]></failure>
+    </testcase>
+    <testcase name="user monthly statements test Should fetch and render monthly statements when the selected user changes" time="0" classname="Should fetch and render monthly statements when the selected user changes">
+      <failure message="Cannot read property &apos;findElement&apos; of undefined" type="TypeError"><![CDATA[TypeError: Cannot read property 'findElement' of undefined
+    at getElementById (test/utils.js:26:19)
+    at setupStatementView (test/utils.js:73:32)
+    at Context.<anonymous> (test/test.js:96:28)
     at processImmediate (internal/timers.js:439:21)]]></failure>
     </testcase>
   </testsuite>
