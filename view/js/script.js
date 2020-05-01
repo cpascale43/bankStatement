@@ -40,11 +40,19 @@ function dollarStrToNum(x) {
   return parseInt(x.split("").splice(1, x.length).join(""));
 }
 
-// returns a string dollar amt
-function getBalance(arr) {
+// converts a number to string dollar amt
+async function numToDollarStr(n) {
+  let balanceStr = '$'
+  let str = await n.toString()
+  balanceStr += str
+
+  return balanceStr
+}
+
+// calculates total balance of credit & debit txns
+async function getBalance(arr) {
   let currBalance = 0;
-  let balanceString = "";
-  arr.forEach((el) => {
+  await arr.forEach((el) => {
     let amt = dollarStrToNum(el.amount);
     if (el.txnType === "debit") {
       currBalance -= amt;
@@ -52,8 +60,8 @@ function getBalance(arr) {
       currBalance += amt;
     }
   });
-  balanceString += `$${currBalance.toString()}`;
-  return balanceString;
+
+  return numToDollarStr(currBalance)
 }
 
 // converts a UTC timestamp to human date
@@ -66,40 +74,52 @@ function convertUTC(time) {
   return humanDate;
 }
 
-// creates an object grouping credits & debits for each month
+// creates an object w balance, credits & debits for each month
 function getMonthlyTxns(data) {
   let monthObj = {};
   let fecha;
-  let amts = [];
+  let credits = 0;
+  let debits = 0;
 
   data.forEach((el) => {
     fecha = convertUTC(el.timestamp);
     monthObj[fecha] = monthObj[fecha] + 1 || 1;
+    if (el.txnType === 'credit') {
+      credits += dollarStrToNum(el.amount)
+    } else if (el.txnType === 'debit') {
+      debits += dollarStrToNum(el.amount)
+    }
   });
 
+  // filters for txns matching the current key's timestamp
+  // grabs that month's balance & store at the matching property
   for (let key in monthObj) {
-    let result = data.filter(el => convertUTC(el.timestamp) === key)
+    let result = getBalance(data.filter(el => convertUTC(el.timestamp) === key))
     monthObj[key] = result
   }
 
-  return monthObj;
+  return {monthObj, credits, debits};
 }
 
-// creates & renders cards for every statement month
-function createCards(data) {
-  for (let key in data) {
+// renders cards for every statement month
+async function createCards(data) {
+  for (let key in data.monthObj) {
     let statement = document.createElement("div");
     statement.className = "statement-card";
     let date = document.createElement("div");
     date.innerHTML = key;
     date.className = "month-year";
+    let balance = document.createElement("div");
+    balance.innerHTML = await data.monthObj[key];
+    balance.className = "monthly-balance";
     let credit = document.createElement("div");
-    credit.innerHTML = `Credit: `;
+    credit.innerHTML = `Credit: ${data.credits}`;
     credit.className = "monthly-credit";
     let debit = document.createElement("div");
-    debit.innerHTML = `Debit:`;
+    debit.innerHTML = `Debit: ${data.debits}`;
     debit.className = "monthly-debit";
     statement.appendChild(date);
+    statement.appendChild(balance);
     date.appendChild(credit);
     date.appendChild(debit);
     document.getElementById("monthly-statements").appendChild(statement);
@@ -113,7 +133,7 @@ async function handleClick() {
   if (data.length !== 0) {
     document.getElementById("loader-view").style.display = "none";
   }
-  let balance = getBalance(data);
+  let balance = await getBalance(data);
   if (balance) document.getElementById("user-balance").innerHTML = balance;
 
   let txns = getMonthlyTxns(data);
